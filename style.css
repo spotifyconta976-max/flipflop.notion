@@ -1,0 +1,397 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000000;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+/* Container centralizado */
+.clock-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+body {
+    background: #000000;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.clock-container {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.time-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.time-group {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.flip-card {
+    width: 60px;
+    height: 80px;
+    perspective: 1000px;
+    position: relative;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipping .flip-card-inner {
+    transform: rotateX(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: #0a0a0a;
+    border-radius: 15px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        inset 0 1px 2px rgba(255, 255, 255, 0.05),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.8);
+    border: 1px solid #1a1a1a;
+}
+
+.flip-card-back {
+    transform: rotateX(180deg);
+    background: #151515;
+}
+
+.separator {
+    font-size: 2rem;
+    color: #666666;
+    font-weight: bold;
+    margin: 0 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+.controls {
+    margin-top: 2rem;
+}
+
+.control-btn {
+    background: #0a0a0a;
+    color: #888888;
+    border: 1px solid #1a1a1a;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+.control-btn:hover {
+    background: #151515;
+    color: #aaaaaa;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsividade otimizada para Notion */
+@media (max-width: 768px) {
+    .flip-card {
+        width: 45px;
+        height: 60px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 1.8rem;
+        border-radius: 8px;
+    }
+    
+    .separator {
+        font-size: 1.5rem;
+        margin: 0 0.3rem;
+    }
+    
+    .time-display {
+        gap: 0.4rem;
+    }
+    
+    .time-group {
+        gap: 0.2rem;
+    }
+    
+    .clock-container {
+        padding: 0.5rem;
+    }
+    
+    .control-btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-card {
+        width: 35px;
+        height: 50px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 1.4rem;
+        border-radius: 6px;
+    }
+    
+    .separator {
+        font-size: 1.2rem;
+        margin: 0 0.2rem;
+    }
+    
+    .time-display {
+        gap: 0.3rem;
+    }
+    
+    .time-group {
+        gap: 0.15rem;
+    }
+    
+    .control-btn {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Otimização específica para embeds do Notion */
+@media (max-width: 600px) and (max-height: 400px) {
+    body {
+        min-height: 150px;
+        max-height: 200px;
+    }
+    
+    .flip-card {
+        width: 40px;
+        height: 55px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 1.6rem;
+    }
+    
+    .separator {
+        font-size: 1.3rem;
+    }
+}
+
+/* Efeito de entrada */
+.flip-card {
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Delay para cada carta */
+.time-group:nth-child(1) .flip-card:nth-child(1) { animation-delay: 0.1s; }
+.time-group:nth-child(1) .flip-card:nth-child(2) { animation-delay: 0.2s; }
+.time-group:nth-child(3) .flip-card:nth-child(1) { animation-delay: 0.3s; }
+.time-group:nth-child(3) .flip-card:nth-child(2) { animation-delay: 0.4s; }
+.time-group:nth-child(5) .flip-card:nth-child(1) { animation-delay: 0.5s; }
+.time-group:nth-child(5) .flip-card:nth-child(2) { animation-delay: 0.6s; }
+
+
+/* Otimização para containers muito pequenos do Notion */
+@media (max-width: 320px) {
+    .flip-card {
+        width: 30px;
+        height: 42px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 1.2rem;
+        border-radius: 4px;
+    }
+    
+    .separator {
+        font-size: 1rem;
+        margin: 0 0.1rem;
+    }
+    
+    .time-display {
+        gap: 0.2rem;
+    }
+    
+    .time-group {
+        gap: 0.1rem;
+    }
+    
+    .clock-container {
+        padding: 0.3rem;
+    }
+}
+
+/* Garantir que o relógio funcione bem em iframes do Notion */
+html, body {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+}
+
+/* Otimização para touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .control-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        min-height: 44px; /* Tamanho mínimo recomendado para touch */
+    }
+}
+
+
+/* Modo fullscreen simulado para dispositivos que não suportam fullscreen nativo */
+.simulated-fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    background: #000000 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.simulated-fullscreen .clock-container {
+    transform: scale(1.5);
+}
+
+/* Garantir centralização em qualquer situação */
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+}
+
+.clock-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Melhorias para fullscreen nativo */
+:fullscreen body,
+:-webkit-full-screen body,
+:-moz-full-screen body,
+:-ms-fullscreen body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+:fullscreen .clock-container,
+:-webkit-full-screen .clock-container,
+:-moz-full-screen .clock-container,
+:-ms-fullscreen .clock-container {
+    transform: scale(1.8);
+}
+
+/* Ajustes para orientação landscape em mobile */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .flip-card {
+        width: 50px;
+        height: 70px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 2rem;
+    }
+    
+    .separator {
+        font-size: 1.8rem;
+    }
+    
+    .clock-container {
+        padding: 0.5rem;
+    }
+}
+
+/* Garantir que o relógio funcione bem em iframes pequenos */
+@media (max-height: 300px) {
+    body {
+        min-height: auto;
+        height: 100%;
+    }
+    
+    .flip-card {
+        width: 40px;
+        height: 55px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        font-size: 1.6rem;
+    }
+    
+    .separator {
+        font-size: 1.3rem;
+    }
+}
+
